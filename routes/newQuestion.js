@@ -6,4 +6,7 @@ questionRouter.get("/", function(req, res, next) {
   });
 });
 
+questionRouter.post("/", function(req, res, next) {
+  res.send("Welcome Post, We've Been Waiting");
+});
 module.exports = questionRouter;
