@@ -1,4 +1,5 @@
 var questionRouter = require("express").Router();
+var Question = require("../models/questions.model");
 
 questionRouter.get("/", function(req, res, next) {
   res.render("newquestion", {
@@ -7,6 +8,18 @@ questionRouter.get("/", function(req, res, next) {
 });
 
 questionRouter.post("/", function(req, res, next) {
-  res.send("Welcome Post, We've Been Waiting");
+  const q = req.body;
+  const newQuestion = new Question({
+    question: q.question,
+    answer: q.answer,
+    author: q.author
+  });
+
+  newQuestion.save(function(err, payload) {
+    if (err) return next(err);
+    //saved!!!
+    res.send(payload);
+  });
 });
+
 module.exports = questionRouter;
